@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"sync"
@@ -40,7 +40,7 @@ func fetchData(endpoint string) ([]byte, error) {
 
 	defer resp.Body.Close()
 	// Read the response body
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Println("Error reading response:", err)
 		return nil, err
@@ -56,8 +56,6 @@ func fetchDataSequentially() {
 			log.Printf("Error fetching data from %s: %v", endpoint, err)
 			continue
 		}
-		// Process the data
-		// log.Printf("Gotten Data from %s: %+v \n", endpoint, string(data))
 	}
 }
 

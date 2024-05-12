@@ -5,7 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
@@ -24,7 +24,7 @@ func main() {
 		},
 	}
 
-	// todoClient.sendJSONRequest()
+	todoClient.sendJSONRequest()
 	todoClient.sendFormData()
 }
 
@@ -64,7 +64,7 @@ func (c TodoClient) sendJSONRequest() {
 	defer resp.Body.Close()
 
 	// Read the response body
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Println("Error reading response:", err)
 		return
@@ -104,7 +104,7 @@ func (c TodoClient) sendFormData() {
 	defer resp.Body.Close()
 
 	// Read the response body
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Println("Error reading response:", err)
 		return

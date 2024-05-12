@@ -21,7 +21,6 @@ type app struct {
 }
 
 func (a app) performRequest(req *http.Request) (map[string]interface{}, error) {
-
 	resp, err := a.client.Do(req)
 	if err != nil {
 		fmt.Println("Could not complete request due to err: ", err)
@@ -35,9 +34,10 @@ func (a app) performRequest(req *http.Request) (map[string]interface{}, error) {
 	err = json.NewDecoder(resp.Body).Decode(&comment)
 	if err != nil {
 		fmt.Println("Error decoding JSON:", err)
-		return
+		return comment, err
 	}
 
+	return comment, nil
 }
 
 func main() {
@@ -54,8 +54,6 @@ func main() {
 	resp, err := client.Do(req)
 	if err != nil {
 		fmt.Println("Could not complete request due to err: ", err)
-		// Wrap the original error with additional context
-		wrappedErr := fmt.Errorf("encountered an error while performing the request: %w", err)
 		return
 	}
 	defer resp.Body.Close()

@@ -2,7 +2,7 @@ package chapter6
 
 import (
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
 	"testing"
@@ -26,7 +26,7 @@ func TestFetchTodoWithMockClient(t *testing.T) {
 			// Define the response for the test case
 			return &http.Response{
 				StatusCode: http.StatusOK,
-				Body:       ioutil.NopCloser(strings.NewReader(`{"userId": 1, "id": 1, "title": "delectus aut autem", "completed": false}`)),
+				Body:       io.NopCloser(strings.NewReader(`{"userId": 1, "id": 1, "title": "delectus aut autem", "completed": false}`)),
 			}, nil
 		},
 	}
